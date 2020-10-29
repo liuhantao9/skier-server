@@ -36,14 +36,14 @@ public class SkierRepository {
     return skierVertical;
   }
 
-  public SkierVertical getSkierResortTotals(String skierId, String resortId) {
+  public SkierVertical getSkierResortTotals(String skierId, List<String> resort) {
     SkierVertical skierVertical = new SkierVertical();
 
     String selectTables = "SELECT Reference FROM resort_day WHERE ResortId = ?";
     List<String> tableNames = new ArrayList<>();
 
     try {
-      tableNames = jdbcTemplate.queryForList(selectTables, new Object[]{resortId}, String.class);
+      tableNames = jdbcTemplate.queryForList(selectTables, new Object[]{resort.get(0)}, String.class);
       int sum = 0;
       for (String name : tableNames) {
         String selectStmt = "SELECT SUM(LiftId) AS vertical"
@@ -53,7 +53,7 @@ public class SkierRepository {
         sum += vertical == null ? 0 : vertical * 10;
       }
       skierVertical.setTotalVert(sum);
-      skierVertical.setResortID(resortId);
+      skierVertical.setResortID(resort.get(0));
     } catch (EmptyResultDataAccessException e) {
       return null;
     }

@@ -57,10 +57,10 @@ public class SkiersApiController implements SkiersApi {
     }
 
     public ResponseEntity<SkierVertical> getSkierResortTotals(@ApiParam(value = "ID the skier to retrieve data for",required=true) @PathVariable("skierID") String skierID
-,@NotNull @ApiParam(value = "resort to filter by", required = true) @Valid @RequestParam(value = "resortID", required = true) String resortID
+,@NotNull @ApiParam(value = "resort to filter by", required = true) @Valid @RequestParam(value = "resort", required = true) List<String> resort
 ) {
         try {
-            return new ResponseEntity<SkierVertical>(skierRepository.getSkierResortTotals(skierID, resortID), HttpStatus.OK);
+            return new ResponseEntity<SkierVertical>(skierRepository.getSkierResortTotals(skierID, resort), HttpStatus.OK);
         } catch (Exception e) {
             log.error("Couldn't serialize response for content type application/json", e);
             return new ResponseEntity<SkierVertical>(HttpStatus.INTERNAL_SERVER_ERROR);

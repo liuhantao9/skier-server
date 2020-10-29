@@ -51,8 +51,8 @@ public interface SkiersApi {
     @RequestMapping(value = "/skiers/{skierID}/vertical",
         produces = { "application/json" }, 
         method = RequestMethod.GET)
-    ResponseEntity<SkierVertical> getSkierResortTotals(@ApiParam(value = "ID the skier to retrieve data for",required=true) @PathVariable("skierID") String skierID
-,@NotNull @ApiParam(value = "resort to filter by", required = true) @Valid @RequestParam(value = "resortID", required = true) String resortID
+    ResponseEntity<SkierVertical> getSkierResortTotals(@ApiParam(value = "ID the skier to retrieve data for",required=true) @PathVariable("skier") String skierID
+,@NotNull @ApiParam(value = "resort to filter by", required = true) @Valid @RequestParam(value = "resort", required = true) List<String> resort
 );
 
 
